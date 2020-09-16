@@ -57,6 +57,9 @@ use function sprintf;
  */
 class DependencyFactory
 {
+    /** @var bool[] */
+    private $inResolution = [];
+
     /** @var Configuration */
     private $configuration;
 
@@ -464,8 +467,10 @@ class DependencyFactory
      */
     private function getDependency(string $id, callable $callback)
     {
-        if (array_key_exists($id, $this->factories) && ! array_key_exists($id, $this->dependencies)) {
+        if (! isset($this->inResolution[$id]) && array_key_exists($id, $this->factories) && ! array_key_exists($id, $this->dependencies)) {
+            $this->inResolution[$id] = true;
             $this->dependencies[$id] = call_user_func($this->factories[$id], $this);
+            unset($this->inResolution);
         }
 
         if (! array_key_exists($id, $this->dependencies)) {

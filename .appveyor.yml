@@ -51,9 +51,9 @@ install:
         if (!(Test-Path C:\tools\composer)) {
           New-Item -path c:\tools -name composer -itemtype directory
         }
-        if (!(Test-Path c:\tools\composer\composer.phar)) {
-          appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar -Filename C:\tools\composer\composer.phar
-          Set-Content -path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer.phar %*')
+        if (!(Test-Path c:\tools\composer\composer-1.phar)) {
+          appveyor-retry appveyor DownloadFile https://getcomposer.org/composer-1.phar -Filename C:\tools\composer\composer-1.phar
+          Set-Content -path 'C:\tools\composer\composer.bat' -Value ('@php C:\tools\composer\composer-1.phar %*')
         }
 
     # install composer dependencies
